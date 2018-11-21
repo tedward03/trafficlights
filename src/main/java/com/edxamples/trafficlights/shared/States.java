@@ -1,4 +1,4 @@
-package com.edxamples.trafficlights;
+package com.edxamples.trafficlights.shared;
 
 public enum States {
     RED, AMBER, GREEN
