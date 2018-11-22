@@ -26,32 +26,33 @@ public class StateMachineRunner {
     StateMachine<States, Events> stateMachine;
 
     /**
-     * @throws InterruptedException
+     * Set up continuous loop for running the state machine
      */
-    public void run() throws InterruptedException {
+    public void run(boolean infinite) throws InterruptedException {
         log.info("Init State: " + stateMachine.getInitialState().getId());
-        while(true) {
-            stepThrough();
-        }
+        do {
+            stepThrough(TimeUnit.SECONDS, 2);
+        } while (infinite);
     }
 
     /**
      * Steps for the state machine
      * it should wait, and also change based on the north-south boolean
      */
-    void stepThrough() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(2);
-        if (northSouthTimeToGo) {
-            stateMachine.sendEvent(Events.LIGHTCHANGE_NS);
-            if (stateMachine.getState().getId() == States.REDALL) {
-                northSouthTimeToGo = !northSouthTimeToGo;
+    void stepThrough(TimeUnit unit, int amount) throws InterruptedException {
+
+            unit.sleep(amount);
+            if (northSouthTimeToGo) {
+                stateMachine.sendEvent(Events.LIGHTCHANGE_NS);
+                if (stateMachine.getState().getId() == States.REDALL) {
+                    northSouthTimeToGo = !northSouthTimeToGo;
+                }
+            } else {
+                stateMachine.sendEvent(Events.LIGHTCHANGE_EW);
+                if (stateMachine.getState().getId() == States.REDALL) {
+                    northSouthTimeToGo = !northSouthTimeToGo;
+                }
             }
-        } else {
-            stateMachine.sendEvent(Events.LIGHTCHANGE_EW);
-            if (stateMachine.getState().getId() == States.REDALL) {
-                northSouthTimeToGo = !northSouthTimeToGo;
-            }
-        }
     }
 
     /**

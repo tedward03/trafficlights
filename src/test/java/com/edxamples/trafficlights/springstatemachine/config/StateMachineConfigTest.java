@@ -69,10 +69,13 @@ public class StateMachineConfigTest {
         StateMachineTestPlan planForTestGreen = StateMachineTestPlanBuilder.<States, Events>builder()
                 .stateMachine(testableStateMachine)
                 .step().expectState(States.REDALL)
+
                 .and().step().sendEvent(Events.LIGHTCHANGE_NS)
                 .and().step().expectState(States.GREEN_NS)
+
                 .and().step().sendEvent(Events.LIGHTCHANGE_EW)
                 .and().step().expectState(States.GREEN_NS)
+
                 .and().build();
         planForTestGreen.test();
     }
@@ -88,12 +91,16 @@ public class StateMachineConfigTest {
         StateMachineTestPlan planForTestAmber = StateMachineTestPlanBuilder.<States, Events>builder()
                 .stateMachine(testableStateMachine)
                 .step().expectState(States.REDALL)
+
                 .and().step().sendEvent(Events.LIGHTCHANGE_NS)
                 .and().step().expectState(States.GREEN_NS)
+
                 .and().step().sendEvent(Events.LIGHTCHANGE_NS)
                 .and().step().expectState(States.AMBER_NS)
+
                 .and().step().sendEvent(Events.LIGHTCHANGE_EW)
                 .and().step().expectState(States.AMBER_NS)
+
                 .and().build();
         planForTestAmber.test();
     }
@@ -109,10 +116,13 @@ public class StateMachineConfigTest {
         StateMachineTestPlan planForTestGreenEW = StateMachineTestPlanBuilder.<States, Events>builder()
                 .stateMachine(testableStateMachine)
                 .step().expectState(States.REDALL)
+
                 .and().step().sendEvent(Events.LIGHTCHANGE_EW)
                 .and().step().expectState(States.GREEN_EW)
+
                 .and().step().sendEvent(Events.LIGHTCHANGE_NS)
                 .and().step().expectState(States.GREEN_EW)
+
                 .and().build();
         planForTestGreenEW.test();
     }
@@ -128,12 +138,16 @@ public class StateMachineConfigTest {
         StateMachineTestPlan planForTestAmberEW =  StateMachineTestPlanBuilder.<States,Events>builder()
                 .stateMachine(testableStateMachine)
                 .step().expectState(States.REDALL)
+
                 .and().step().sendEvent(Events.LIGHTCHANGE_EW)
                 .and().step().expectState(States.GREEN_EW)
+
                 .and().step().sendEvent(Events.LIGHTCHANGE_EW)
                 .and().step().expectState(States.AMBER_EW)
+
                 .and().step().sendEvent(Events.LIGHTCHANGE_NS)
                 .and().step().expectState(States.AMBER_EW)
+
                 .and().build();
         planForTestAmberEW.test();
     }

@@ -22,7 +22,7 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws InterruptedException, IOException {
-        runner.run();
+        runner.run(true);
     }
 
 }
