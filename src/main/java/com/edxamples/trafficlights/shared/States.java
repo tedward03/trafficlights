@@ -1,5 +1,5 @@
 package com.edxamples.trafficlights.shared;
 
 public enum States {
-    RED, AMBER, GREEN
+    REDALL, AMBER_NS, GREEN_NS,AMBER_EW,GREEN_EW
 }

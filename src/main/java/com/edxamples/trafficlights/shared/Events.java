@@ -1,5 +1,5 @@
 package com.edxamples.trafficlights.shared;
 
 public enum Events {
-    LIGHTCHANGE
+    LIGHTCHANGE_NS,LIGHTCHANGE_EW
 }

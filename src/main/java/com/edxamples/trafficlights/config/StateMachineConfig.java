@@ -1,6 +1,7 @@
 package com.edxamples.trafficlights.config;
 
 import com.edxamples.trafficlights.Application;
+import com.edxamples.trafficlights.StateMachineRunner;
 import com.edxamples.trafficlights.shared.Events;
 import com.edxamples.trafficlights.shared.States;
 import org.apache.log4j.Logger;
@@ -17,8 +18,7 @@ import java.util.EnumSet;
 
 @Configuration
 @EnableStateMachine
-public class StateMachineConfig
-        extends EnumStateMachineConfigurerAdapter<States, Events> {
+public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States, Events> {
 
     private final static Logger log = org.apache.log4j.Logger.getLogger(Application.class);
 
@@ -33,7 +33,7 @@ public class StateMachineConfig
             throws Exception {
         states
                 .withStates()
-                .initial(States.RED)
+                .initial(States.REDALL)
                 .states(EnumSet.allOf(States.class));
     }
 
@@ -48,11 +48,17 @@ public class StateMachineConfig
 
         transitions
                 .withExternal()
-                .source(States.RED).target(States.GREEN).event(Events.LIGHTCHANGE).action(stateAction())
+                .source(States.REDALL).target(States.GREEN_NS).event(Events.LIGHTCHANGE_NS).action(stateAction())
                 .and().withExternal()
-                .source(States.GREEN).target(States.AMBER).event(Events.LIGHTCHANGE).action(stateAction())
+                .source(States.GREEN_NS).target(States.AMBER_NS).event(Events.LIGHTCHANGE_NS).action(stateAction())
                 .and().withExternal()
-                .source(States.AMBER).target(States.RED).event(Events.LIGHTCHANGE).action(stateAction());
+                .source(States.AMBER_NS).target(States.REDALL).event(Events.LIGHTCHANGE_NS).action(stateAction())
+                .and().withExternal()
+                .source(States.REDALL).target(States.GREEN_EW).event(Events.LIGHTCHANGE_EW).action(stateAction())
+                .and().withExternal()
+                .source(States.GREEN_EW).target(States.AMBER_EW).event(Events.LIGHTCHANGE_EW).action(stateAction())
+                .and().withExternal()
+                .source(States.AMBER_EW).target(States.REDALL).event(Events.LIGHTCHANGE_EW).action(stateAction());
     }
 
     /**
@@ -62,5 +68,10 @@ public class StateMachineConfig
     @Bean
     Action<States, Events> stateAction() {
         return stateContext -> log.info("State change to " + stateContext.getTarget().getId());
+    }
+
+    @Bean
+    StateMachineRunner runner() {
+        return new StateMachineRunner();
     }
 }
