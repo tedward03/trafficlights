@@ -2,13 +2,14 @@ package com.edxamples.trafficlights;
 
 import com.edxamples.trafficlights.config.StateMachineConfig;
 import com.edxamples.trafficlights.shared.States;
+import com.edxamples.trafficlights.shared.Timings;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -16,13 +17,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = { StateMachineConfig.class})
+@SpringBootTest(classes = { StateMachineConfig.class,StateMachineRunnerIntegrationTest.TimingsContext.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class StateMachineRunnerTest {
+public class StateMachineRunnerIntegrationTest {
 
     @Autowired
     StateMachine machine;
@@ -39,29 +39,28 @@ public class StateMachineRunnerTest {
     public void testStepThrough() throws InterruptedException {
         //init
         TimeUnit testUnit = TimeUnit.MILLISECONDS;
-        Assert.assertThat(machine.getInitialState().getId(),is(States.REDALL));
+        Assert.assertThat(machine.getInitialState().getId(),is(States.GREEN_MAJOR));
         //if
-        runner.stepThrough(testUnit,3);
+        runner.triggerTraffic(testUnit,2);
         //then
-        Assert.assertThat(runner.getState(),is(States.GREEN_EW));
+        Assert.assertThat(runner.getState(),is(States.AMBER_MAJOR));
 
-        runner.stepThrough(testUnit,2);
-        runner.stepThrough(testUnit,2);
-
-        Assert.assertThat(runner.isNorthSouthTimeToGo(),is(true));
-        Assert.assertThat(runner.getState(),is(States.REDALL));
-
-        runner.stepThrough(testUnit,2);
-
-        Assert.assertThat(runner.isNorthSouthTimeToGo(),is(true));
-        Assert.assertThat(runner.getState(),is(States.GREEN_NS));
-
-        runner.stepThrough(testUnit,2);
-        runner.stepThrough(testUnit,2);
-
-        Assert.assertThat(runner.isNorthSouthTimeToGo(),is(false));
-        Assert.assertThat(runner.getState(),is(States.REDALL));
     }
 
+    /** Test Config
+     */
+    @Configuration
+    static class TimingsContext {
+
+        /**
+         * Add in a different timings bean so that we can have a faster test
+         * @return the timings bean only used for this test
+         */
+        @Bean
+        Timings timings(){
+            return Timings.buildTimingsAllSameForLights(15,2);
+        }
+
+    }
 
 }
