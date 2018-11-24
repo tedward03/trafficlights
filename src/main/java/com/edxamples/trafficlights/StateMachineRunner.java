@@ -1,8 +1,9 @@
 package com.edxamples.trafficlights;
 
-import com.edxamples.trafficlights.shared.Events;
-import com.edxamples.trafficlights.shared.States;
-import com.edxamples.trafficlights.shared.Timings;
+import com.edxamples.trafficlights.timing.TimingsFacade;
+import com.edxamples.trafficlights.timing.database.TimingsRepository;
+import com.edxamples.trafficlights.statemachine.Events;
+import com.edxamples.trafficlights.statemachine.States;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
@@ -19,7 +20,7 @@ public class StateMachineRunner {
     private final static Logger log = org.apache.log4j.Logger.getLogger(Application.class);
 
     @Autowired
-    Timings timings;
+    TimingsFacade timingsFacade;
 
     @Autowired
     StateMachine<States, Events> stateMachine;
@@ -30,7 +31,7 @@ public class StateMachineRunner {
     void run(boolean infinite) throws InterruptedException {
         log.info("Init State: " + stateMachine.getInitialState().getId());
         do {
-            triggerTraffic(TimeUnit.MILLISECONDS, timings.getTrafficEventMillis());
+            triggerTraffic(TimeUnit.MILLISECONDS, timingsFacade.getTrafficEventFrequencyTime());
         } while (infinite);
     }
 
@@ -38,10 +39,10 @@ public class StateMachineRunner {
      * Steps for the state machine
      * it should wait, and also change based on the north-south boolean
      */
-    void triggerTraffic(TimeUnit unit, int amount) throws InterruptedException {
-        unit.sleep(amount);
+    void triggerTraffic(TimeUnit unit, long amount) throws InterruptedException {
         log.info("Traffic arrives at minor road (Event transition Fired)");
         stateMachine.sendEvent(Events.MINOR_ROAD_TRAFFIC);
+        unit.sleep(amount);
     }
 
     /**

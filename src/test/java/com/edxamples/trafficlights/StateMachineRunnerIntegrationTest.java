@@ -1,8 +1,7 @@
 package com.edxamples.trafficlights;
 
 import com.edxamples.trafficlights.config.StateMachineConfig;
-import com.edxamples.trafficlights.shared.States;
-import com.edxamples.trafficlights.shared.Timings;
+import com.edxamples.trafficlights.statemachine.States;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +19,7 @@ import static org.hamcrest.core.Is.is;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = { StateMachineConfig.class,StateMachineRunnerIntegrationTest.TimingsContext.class})
+@SpringBootTest(classes = { StateMachineConfig.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class StateMachineRunnerIntegrationTest {
 
@@ -39,7 +38,7 @@ public class StateMachineRunnerIntegrationTest {
     public void testStepThrough() throws InterruptedException {
         //init
         TimeUnit testUnit = TimeUnit.MILLISECONDS;
-        Assert.assertThat(machine.getInitialState().getId(),is(States.GREEN_MAJOR));
+        Assert.assertThat(machine.getInitialState().getId(),is(States.GREEN_MAJOR_NO_EVENT_YET));
         //if
         runner.triggerTraffic(testUnit,2);
         //then
@@ -47,20 +46,20 @@ public class StateMachineRunnerIntegrationTest {
 
     }
 
-    /** Test Config
-     */
-    @Configuration
-    static class TimingsContext {
-
-        /**
-         * Add in a different timings bean so that we can have a faster test
-         * @return the timings bean only used for this test
-         */
-        @Bean
-        Timings timings(){
-            return Timings.buildTimingsAllSameForLights(15,2);
-        }
-
-    }
+//    /** Test Config
+//     */
+//    @Configuration
+//    static class ConstantTimesContext {
+//
+//        /**
+//         * Add in a different constantTimes bean so that we can have a faster test
+//         * @return the constantTimes bean only used for this test
+//         */
+//        @Bean
+//        ConstantTimes timings(){
+//            return ConstantTimes.buildTimingsAllSameForLights(15,2);
+//        }
+//
+//    }
 
 }

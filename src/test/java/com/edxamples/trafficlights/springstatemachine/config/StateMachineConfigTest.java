@@ -3,8 +3,8 @@ package com.edxamples.trafficlights.springstatemachine.config;
 
 import com.edxamples.trafficlights.config.StateMachineConfig;
 import com.edxamples.trafficlights.config.TimingsConfig;
-import com.edxamples.trafficlights.shared.Events;
-import com.edxamples.trafficlights.shared.States;
+import com.edxamples.trafficlights.statemachine.Events;
+import com.edxamples.trafficlights.statemachine.States;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class StateMachineConfigTest {
     @Test
     public void testInitState() throws Exception {
         StateMachineTestPlan plan =  StateMachineTestPlanBuilder.<States,Events>builder()
-                .stateMachine(testableStateMachine).step().expectState(States.GREEN_MAJOR).and().build();
+                .stateMachine(testableStateMachine).step().expectState(States.GREEN_MAJOR_NO_EVENT_YET).and().build();
         plan.test();
     }
 
@@ -39,7 +39,7 @@ public class StateMachineConfigTest {
 
         StateMachineTestPlan plan =  StateMachineTestPlanBuilder.<States,Events>builder()
                 .stateMachine(testableStateMachine)
-                .step().expectState(States.GREEN_MAJOR)
+                .step().expectState(States.GREEN_MAJOR_NO_EVENT_YET)
                 .and().step().sendEvent(Events.MINOR_ROAD_TRAFFIC)
                 .and().build();
         plan.test();
