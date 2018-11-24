@@ -54,7 +54,8 @@ public class StateMachineRunnerIntegrationTest {
     public void testRunContinuesToAllStates() throws InterruptedException {
         Assert.assertThat(machine.getInitialState().getId(),is(TrafficLightStates.OFF));
         runner.run();
-        Thread.sleep(80);
+        //eww
+        Thread.sleep(100);
         Assert.assertThat(listener.getTransitionsHistory().get(TrafficLightStates.GREEN_MAJOR),is(TrafficLightStates.AMBER_MAJOR));
         Assert.assertThat(listener.getTransitionsHistory().get(TrafficLightStates.AMBER_MAJOR),is(TrafficLightStates.RED_MAJOR));
         Assert.assertThat(listener.getTransitionsHistory().get(TrafficLightStates.RED_MAJOR),is(TrafficLightStates.GREEN_MINOR));
