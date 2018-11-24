@@ -8,13 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.IOException;
 
 /**
- * MAin application class
+ * Main application class
  */
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
     @Autowired
-    StateMachineRunner runner;
+    TrafficLightStarter runner;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -22,7 +22,7 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws InterruptedException, IOException {
-        runner.run(true);
+        runner.run();
     }
 
 }

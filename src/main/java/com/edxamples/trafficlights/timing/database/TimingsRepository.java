@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Time;
 
+/**
+ * Used to query the in memory database for the right data
+ */
 @Repository
 public class TimingsRepository  {
 

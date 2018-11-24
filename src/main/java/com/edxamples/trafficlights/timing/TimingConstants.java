@@ -11,6 +11,6 @@ public class TimingConstants {
     static final long RED_AFTER_MAJOR_TO_GREEN_MINOR_MILLIS = 5000;
     static final long AMBER_MINOR_TO_RED_AFTER_MINOR_MILLIS = 5000;
     static final long RED_AFTER_MINOR_TO_GREEN_MAJOR_MILLIS = 5000;
-    static final long TRAFFIC_EVENT_FREQUENCY_MILLIS = 100000;
+
 }
 

@@ -1,6 +1,6 @@
 package com.edxamples.trafficlights.config;
 
-import com.edxamples.trafficlights.timing.TimingsFacade;
+import com.edxamples.trafficlights.timing.TimingFacade;
 import com.edxamples.trafficlights.timing.services.TimingInputHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +19,8 @@ public class TimingsConfig {
     private String time;
 
     @Bean
-    TimingsFacade timingsFacade(){
-        return new TimingsFacade();
+    TimingFacade timingsFacade(){
+        return new TimingFacade();
     }
 
     @Bean

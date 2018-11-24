@@ -1,9 +1,14 @@
 package com.edxamples.trafficlights.timing.database;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.*;
+import javax.persistence.Table;
 import java.sql.Time;
 
+/**
+ * Entity class for the table "TIMINGS"
+ */
 @Table(name = "timings")
 @Entity
 public class Timings {
@@ -29,7 +34,8 @@ public class Timings {
     @Column(name="DISPLAY_NAME")
     private String displayName;
 
-    public Timings() {
+    public Timings(){
+
     }
 
     public Timings(int id, String dayOfWeek, Time startTime, Time endTime, long greenMajorDurationMillis, long greenMinorDurationMillis, String displayName) {
@@ -108,5 +114,6 @@ public class Timings {
                 "Green Minor Duration: " + this.getGreenMinorDurationMillis() + ", " +
                 "Display Name: " + this.getDisplayName();
     }
+
 }
 

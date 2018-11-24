@@ -1,4 +1,4 @@
-create table timings
+create table IF NOT EXISTS timings
 (
     id integer auto_increment not null,
     dayOfWeek varchar(255) not null,
