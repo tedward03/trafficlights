@@ -1,6 +1,8 @@
 # Traffic Lights
 **Traffic lights state machine v2.0**
 
+Build with <code>mvn clean install</code>
+
 Run using <code>java -jar traffic-light-{version}.jar --day.code={daycode} --time={time} </code>
 
 There are additional parameters now that can change the time and day for the stateMachine 
