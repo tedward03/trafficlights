@@ -1,4 +1,23 @@
 # Traffic Lights
+**Traffic lights state machine v2.0**
+Run using <code>java -jar traffic-light-{version}.jar --day.code={daycode} --time={time} </code>
+
+There are additional parameters now that can change the time and day for the stateMachine 
+
+Optional params
+
+<code> --day.code="MON" --time="09:00:00" </code> 
+
+they both must be of the format "DDD" and "HH:MM:SS" respectively
+
+If they are in the wrong format or you choice is to  not give them, on start up you will get some warnings.
+But it will be fine those parameters will just default to the time now.
+
+<code> WARN The time specified in args didn't match the format we needed (HH:mm:ss) so defaulting to right now : 21:27:23</code>
+
+I used a h2 database to store the timings , but only the ones for the green major and minor , due to the other states usually having a constant time anyways
+
+
 **Traffic lights state machine v1.1**
 
 Run using <code>java -jar traffic-light-{version}.jar</code>
