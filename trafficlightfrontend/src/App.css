@@ -1,0 +1,18 @@
+.bestButton {
+  background: radial-gradient(rgb(61, 61, 61), rgb(34, 31, 31));
+  font-size: 20px; /* Set a font size */
+  color: white;
+  cursor: pointer; /* Mouse pointer on hover */
+  position: absolute;
+  left: 330px;
+  top: 600px;
+  width: 90px;
+  z-index: 3;
+  border-radius: 10px;
+  height: 100px; 
+}
+
+/* https://codepen.io/billyysea/pen/whjbK */
+.sky-gradient-16 { 
+  
+ }
