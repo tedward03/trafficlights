@@ -1,27 +1,30 @@
 # Traffic Lights
 
 This is my submission for the 3 last questions on the coding icebreaker
-traffic-light-1.1  = Question 3
-traffic-light-2.0  = Question 5
-traffic-light-2.1 = Question 4
+
+##### traffic-light-1.1  = Question 3
+
+##### traffic-light-2.0  = Question 5
+
+##### traffic-light-2.1 = Question 4
 
 (yes i did them in the wrong order)
 
-####Building 
+#### Building 
 
 In order to build this code in the latest version you need to maven 
 <code>mvn clean install</code>
 
-#####NOTE: Due to the way that the frontend is package with the backend for this project maven plugins will install node and npm (good luck with that)
+##### NOTE: Due to the way that the frontend is package with the backend for this project maven plugins will install node and npm (good luck with that)
 
-####Running
+#### Running
 java -jar traffic-light-{version}.jar 
 
 Optional Startup Params 
 * --day.code="DDD" 
 * --time="hh:mm:ss"
  
-#####Accessing frontend (once jar is started)
+##### Accessing frontend (once jar is started)
 http://localhost:8080/
 
 ##### Accessing database console (once jar is started)
@@ -31,7 +34,7 @@ JDBC url = jdbc:h2:mem:testdb , Driver class = org.h2.Driver , username = sa , P
 ##### Console
 The console should log each of the state transitions for the question 3 part
 
-###Versions blurb
+### Versions blurb
 
 **Traffic lights state machine v2.1**
 
